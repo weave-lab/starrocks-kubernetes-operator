@@ -912,6 +912,8 @@ spec:
                             type: array
                         type: object
                     type: object
+                  allowPrivilegeEscalation:
+                    type: boolean
                   annotations:
                     additionalProperties:
                       type: string
@@ -1060,6 +1062,9 @@ spec:
                           type: string
                       type: object
                     type: array
+                  groupID:
+                    format: int64
+                    type: integer
                   hostAliases:
                     description: HostAliases is an optional list of hosts and IPs
                       that will be injected into the pod's hosts file if specified.
@@ -1118,6 +1123,8 @@ spec:
                       type: string
                     description: the pod labels for user select or classify pods.
                     type: object
+                  readOnlyRootFilesystem:
+                    type: boolean
                   replicas:
                     description: 'Replicas is the number of desired Pod. When HPA
                       policy is enabled with a fixed replica count: every time the
@@ -1328,6 +1335,12 @@ spec:
                           type: string
                       type: object
                     type: array
+                  userID:
+                    format: int64
+                    type: integer
+                required:
+                - allowPrivilegeEscalation
+                - readOnlyRootFilesystem
                 type: object
               starRocksCnSpec:
                 description: StarRocksCnSpec define cn configuration for start cn
@@ -2190,6 +2203,8 @@ spec:
                             type: array
                         type: object
                     type: object
+                  allowPrivilegeEscalation:
+                    type: boolean
                   annotations:
                     additionalProperties:
                       type: string
@@ -3018,6 +3033,9 @@ spec:
                           type: string
                       type: object
                     type: array
+                  groupID:
+                    format: int64
+                    type: integer
                   hostAliases:
                     description: HostAliases is an optional list of hosts and IPs
                       that will be injected into the pod's hosts file if specified.
@@ -3076,6 +3094,8 @@ spec:
                       type: string
                     description: the pod labels for user select or classify pods.
                     type: object
+                  readOnlyRootFilesystem:
+                    type: boolean
                   replicas:
                     description: 'Replicas is the number of desired Pod. When HPA
                       policy is enabled with a fixed replica count: every time the
@@ -3286,6 +3306,12 @@ spec:
                           type: string
                       type: object
                     type: array
+                  userID:
+                    format: int64
+                    type: integer
+                required:
+                - allowPrivilegeEscalation
+                - readOnlyRootFilesystem
                 type: object
               starRocksFeProxySpec:
                 description: StarRocksLoadSpec define a proxy for fe.
@@ -5240,6 +5266,8 @@ spec:
                             type: array
                         type: object
                     type: object
+                  allowPrivilegeEscalation:
+                    type: boolean
                   annotations:
                     additionalProperties:
                       type: string
@@ -5388,6 +5416,9 @@ spec:
                       - name
                       type: object
                     type: array
+                  groupID:
+                    format: int64
+                    type: integer
                   hostAliases:
                     description: HostAliases is an optional list of hosts and IPs
                       that will be injected into the pod's hosts file if specified.
@@ -5446,6 +5477,8 @@ spec:
                       type: string
                     description: the pod labels for user select or classify pods.
                     type: object
+                  readOnlyRootFilesystem:
+                    type: boolean
                   replicas:
                     description: 'Replicas is the number of desired Pod. When HPA
                       policy is enabled with a fixed replica count: every time the
@@ -5656,6 +5689,12 @@ spec:
                           type: string
                       type: object
                     type: array
+                  userID:
+                    format: int64
+                    type: integer
+                required:
+                - allowPrivilegeEscalation
+                - readOnlyRootFilesystem
                 type: object
             type: object
           status:

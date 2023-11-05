@@ -64,6 +64,10 @@ spec:
     serviceAccount: {{ .Values.starrocksFESpec.serviceAccount }}
 {{- end }}
     runAsNonRoot: {{ .Values.starrocksFESpec.runAsNonRoot }}
+    groupID: {{ .Values.starrocksFESpec.groupID }}
+    userID: {{ .Values.starrocksFESpec.userId }}
+    allowPrivilegeEscalation: {{ .Values.starrocksFESpec.AllowPrivilegeEscalation }}
+    readOnlyRootFilesystem: {{ .Values.starrocksFESpec.ReadOnlyRootFilesystem }}
 {{- if .Values.starrocksFESpec.nodeSelector }}
     nodeSelector:
 {{ toYaml .Values.starrocksFESpec.nodeSelector | indent 6 }}
@@ -142,8 +146,48 @@ spec:
 {{- end }}
 {{- if .Values.starrocksFESpec.storageSpec.logStorageSize }}
       storageSize: {{ .Values.starrocksFESpec.storageSpec.logStorageSize }}
-{{- end }}      
+{{- end }}
       mountPath: {{ template "starrockscluster.fe.log.path" . }}
+    - name: {{ .Values.starrocksFESpec.storageSpec.name }}-pid
+{{- if .Values.starrocksFESpec.storageSpec.storageClassName }}
+      storageClassName: {{ .Values.starrocksFESpec.storageSpec.storageClassName }}
+{{- end }}
+{{- if .Values.starrocksFESpec.storageSpec.pidstoragesize }}
+      storageSize: {{ .Values.starrocksFESpec.storageSpec.pidstoragesize }}
+{{- end }}
+      mountPath: /opt/starrocks/fe/pid
+    - name: {{ .Values.starrocksFESpec.storageSpec.name }}
+{{- if .Values.starrocksFESpec.storageSpec.storageClassName }}
+      storageClassName: {{ .Values.starrocksFESpec.storageSpec.storageClassName }}
+{{- end }}
+{{- if .Values.starrocksFESpec.storageSpec.configmapstorageSize }}
+      storageSize: {{ .Values.starrocksFESpec.storageSpec.configmapstorageSize }}
+{{- end }}
+      mountPath: /opt/starrocks/fe/conf
+    - name: {{ .Values.starrocksFESpec.storageSpec.name }}-plugins
+{{- if .Values.starrocksFESpec.storageSpec.storageClassName }}
+      storageClassName: {{ .Values.starrocksFESpec.storageSpec.storageClassName }}
+{{- end }}
+{{- if .Values.starrocksFESpec.storageSpec.plugins }}
+      storageSize: {{ .Values.starrocksFESpec.storageSpec.plugins }}
+{{- end }}
+      mountPath: /opt/starrocks/fe/plugins
+    - name: {{ .Values.starrocksFESpec.storageSpec.name }}-tempdir
+{{- if .Values.starrocksFESpec.storageSpec.storageClassName }}
+      storageClassName: {{ .Values.starrocksFESpec.storageSpec.storageClassName }}
+{{- end }}
+{{- if .Values.starrocksFESpec.storageSpec.temp_dir }}
+      storageSize: {{ .Values.starrocksFESpec.storageSpec.temp_dir }}
+{{- end }}
+      mountPath: /opt/starrocks/fe/temp_dir
+    - name: {{ .Values.starrocksFESpec.storageSpec.name }}-tmp
+{{- if .Values.starrocksFESpec.storageSpec.storageClassName }}
+      storageClassName: {{ .Values.starrocksFESpec.storageSpec.storageClassName }}
+{{- end }}
+{{- if .Values.starrocksFESpec.storageSpec.temp_dir }}
+      storageSize: {{ .Values.starrocksFESpec.storageSpec.temp_dir }}
+{{- end }}
+      mountPath: /tmp
 {{- end }}
 {{- end }}
 
@@ -201,6 +245,10 @@ spec:
     serviceAccount: {{ .Values.starrocksBeSpec.serviceAccount }}
 {{- end }}
     runAsNonRoot: {{ .Values.starrocksBeSpec.runAsNonRoot }}
+    groupID: {{ .Values.starrocksBeSpec.groupID }}
+    userID: {{ .Values.starrocksBeSpec.userId }}
+    allowPrivilegeEscalation: {{ .Values.starrocksBeSpec.AllowPrivilegeEscalation }}
+    readOnlyRootFilesystem: {{ .Values.starrocksBeSpec.ReadOnlyRootFilesystem }}
 {{- if .Values.starrocksBeSpec.podLabels }}
     podLabels:
 {{toYaml .Values.starrocksBeSpec.podLabels | indent 6 }}
@@ -281,6 +329,62 @@ spec:
       storageSize: {{ .Values.starrocksBeSpec.storageSpec.logStorageSize }}
 {{- end }}
       mountPath: {{template "starrockscluster.be.log.path" . }}
+    - name: {{ .Values.starrocksBeSpec.storageSpec.name }}-configmap
+{{- if .Values.starrocksBeSpec.storageSpec.storageClassName }}
+      storageClassName: {{ .Values.starrocksBeSpec.storageSpec.storageClassName }}
+{{- end }}
+{{- if .Values.starrocksBeSpec.storageSpec.configmapstorageSize }}
+      storageSize: {{ .Values.starrocksBeSpec.storageSpec.configmapstorageSize }}
+{{- end }}
+      mountPath: /opt/starrocks/be/conf
+    - name: {{ .Values.starrocksBeSpec.storageSpec.name }}-pid
+{{- if .Values.starrocksBeSpec.storageSpec.storageClassName }}
+      storageClassName: {{ .Values.starrocksBeSpec.storageSpec.storageClassName }}
+{{- end }}
+{{- if .Values.starrocksBeSpec.storageSpec.pidstoragesize }}
+      storageSize: {{ .Values.starrocksBeSpec.storageSpec.pidstoragesize }}
+{{- end }}
+      mountPath: /opt/starrocks/be/pid
+    - name: {{ .Values.starrocksBeSpec.storageSpec.name }}-udfruntime
+{{- if .Values.starrocksBeSpec.storageSpec.storageClassName }}
+      storageClassName: {{ .Values.starrocksBeSpec.storageSpec.storageClassName }}
+{{- end }}
+{{- if .Values.starrocksBeSpec.storageSpec.becommon }}
+      storageSize: {{ .Values.starrocksBeSpec.storageSpec.becommon }}
+{{- end }}
+      mountPath: /opt/starrocks/be/lib/udf-runtime
+    - name: {{ .Values.starrocksBeSpec.storageSpec.name }}-udf
+{{- if .Values.starrocksBeSpec.storageSpec.storageClassName }}
+      storageClassName: {{ .Values.starrocksBeSpec.storageSpec.storageClassName }}
+{{- end }}
+{{- if .Values.starrocksBeSpec.storageSpec.becommon}}
+      storageSize: {{ .Values.starrocksBeSpec.storageSpec.becommon }}
+{{- end }}
+      mountPath: /opt/starrocks/be/lib/udf
+    - name: {{ .Values.starrocksBeSpec.storageSpec.name }}-smallfile
+{{- if .Values.starrocksBeSpec.storageSpec.storageClassName }}
+      storageClassName: {{ .Values.starrocksBeSpec.storageSpec.storageClassName }}
+{{- end }}
+{{- if .Values.starrocksBeSpec.storageSpec.becommon }}
+      storageSize: {{ .Values.starrocksBeSpec.storageSpec.becommon }}
+{{- end }}
+      mountPath: /opt/starrocks/be/lib/small_file
+    - name: {{ .Values.starrocksBeSpec.storageSpec.name }}-jdbcdrivers
+{{- if .Values.starrocksBeSpec.storageSpec.storageClassName }}
+      storageClassName: {{ .Values.starrocksBeSpec.storageSpec.storageClassName }}
+{{- end }}
+{{- if .Values.starrocksBeSpec.storageSpec.jdbcdrivers }}
+      storageSize: {{ .Values.starrocksBeSpec.storageSpec.jdbcdrivers }}
+{{- end }}
+      mountPath: /opt/starrocks/be/lib/jdbc_drivers
+    - name: {{ .Values.starrocksBeSpec.storageSpec.name }}-spill
+{{- if .Values.starrocksBeSpec.storageSpec.storageClassName }}
+      storageClassName: {{ .Values.starrocksBeSpec.storageSpec.storageClassName }}
+{{- end }}
+{{- if .Values.starrocksBeSpec.storageSpec.becommon }}
+      storageSize: {{ .Values.starrocksBeSpec.storageSpec.becommon }}
+{{- end }}
+      mountPath: /opt/starrocks/be/spill
 {{- end }}
 {{- end }}
 {{- end }}
