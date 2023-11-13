@@ -635,6 +635,26 @@ func (in *StarRocksComponentSpec) DeepCopyInto(out *StarRocksComponentSpec) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.UserID != nil {
+		in, out := &in.UserID, &out.UserID
+		*out = new(int64)
+		**out = **in
+	}
+	if in.GroupID != nil {
+		in, out := &in.GroupID, &out.GroupID
+		*out = new(int64)
+		**out = **in
+	}
+	if in.AllowPrivilegeEscalation != nil {
+		in, out := &in.AllowPrivilegeEscalation, &out.AllowPrivilegeEscalation
+		*out = new(bool)
+		**out = **in
+	}
+	if in.ReadOnlyRootFilesystem != nil {
+		in, out := &in.ReadOnlyRootFilesystem, &out.ReadOnlyRootFilesystem
+		*out = new(bool)
+		**out = **in
+	}
 	if in.ConfigMaps != nil {
 		in, out := &in.ConfigMaps, &out.ConfigMaps
 		*out = make([]ConfigMapReference, len(*in))
@@ -837,16 +857,6 @@ func (in *StarRocksLoadSpec) DeepCopyInto(out *StarRocksLoadSpec) {
 	out.ConfigMapInfo = in.ConfigMapInfo
 	if in.StartupProbeFailureSeconds != nil {
 		in, out := &in.StartupProbeFailureSeconds, &out.StartupProbeFailureSeconds
-		*out = new(int32)
-		**out = **in
-	}
-	if in.LivenessProbeFailureSeconds != nil {
-		in, out := &in.LivenessProbeFailureSeconds, &out.LivenessProbeFailureSeconds
-		*out = new(int32)
-		**out = **in
-	}
-	if in.ReadinessProbeFailureSeconds != nil {
-		in, out := &in.ReadinessProbeFailureSeconds, &out.ReadinessProbeFailureSeconds
 		*out = new(int32)
 		**out = **in
 	}

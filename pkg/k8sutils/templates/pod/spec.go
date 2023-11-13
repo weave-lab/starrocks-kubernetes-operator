@@ -416,33 +416,52 @@ func Annotations(spec v1.SpecInterface) map[string]string {
 }
 
 func PodSecurityContext(spec v1.SpecInterface) *corev1.PodSecurityContext {
-	_, groupID := spec.GetRunAsNonRoot()
+	userID, groupID := spec.GetRunAsNonRoot()
 	fsGroup := (*int64)(nil)
 	if groupID != nil {
 		fsGroup = groupID
 	}
-	onRootMismatch := corev1.FSGroupChangeOnRootMismatch
+	// Define the fsGroupChangePolicy
+	fsGroupChangePolicy := corev1.FSGroupChangeAlways // Changed policy here
+	// Create the PodSecurityContext
 	sc := &corev1.PodSecurityContext{
-		FSGroupChangePolicy: &onRootMismatch,
+		RunAsUser:           userID,
+		RunAsGroup:          groupID,
 		FSGroup:             fsGroup,
+		FSGroupChangePolicy: &fsGroupChangePolicy,
 	}
 	return sc
 }
 
 func ContainerSecurityContext(spec v1.SpecInterface) *corev1.SecurityContext {
-	userID, groupID := spec.GetRunAsNonRoot()
-
-	var runAsNonRoot *bool
+	var runAsNonRoot, allowPrivilegeEscalation, readOnlyRootFilesystem *bool
+	userID, _ := spec.GetRunAsNonRoot()
 	if userID != nil && *userID != 0 {
 		b := true
 		runAsNonRoot = &b
 	}
+	if spec.GetAllowPrivilegeEscalation() != nil {
+		allowPrivilegeEscalation = spec.GetAllowPrivilegeEscalation()
+	} else {
+		b := false
+		allowPrivilegeEscalation = &b
+	}
+	if spec.GetReadOnlyRootFilesystem() != nil {
+		readOnlyRootFilesystem = spec.GetReadOnlyRootFilesystem()
+	} else {
+		b := false
+		readOnlyRootFilesystem = &b
+	}
+	capabilities := &corev1.Capabilities{
+		Drop: []corev1.Capability{"ALL"},
+	}
 	return &corev1.SecurityContext{
-		RunAsUser:                userID,
-		RunAsGroup:               groupID,
 		RunAsNonRoot:             runAsNonRoot,
-		AllowPrivilegeEscalation: func() *bool { b := false; return &b }(),
-		// starrocks will create pid file, eg.g /opt/starrocks/fe/bin/fe.pid, so set it to false
-		ReadOnlyRootFilesystem: func() *bool { b := false; return &b }(),
+		AllowPrivilegeEscalation: allowPrivilegeEscalation,
+		ReadOnlyRootFilesystem:   readOnlyRootFilesystem,
+		Capabilities:             capabilities,
+		SeccompProfile: &corev1.SeccompProfile{
+			Type: corev1.SeccompProfileTypeRuntimeDefault,
+		},
 	}
 }

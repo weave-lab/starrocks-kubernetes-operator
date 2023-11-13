@@ -79,7 +79,7 @@ func (fc *FeController) buildPodTemplate(src *srapi.StarRocksCluster, config map
 	feContainer := corev1.Container{
 		Name:            srapi.DEFAULT_FE,
 		Image:           feSpec.Image,
-		Command:         []string{"/opt/starrocks/fe_entrypoint.sh"},
+		Command:         []string{"/opt/starrocks_temp/weave-entrypoint.sh"},
 		Args:            []string{"$(FE_SERVICE_NAME)"},
 		Ports:           pod.Ports(feSpec, config),
 		Env:             Envs,
