@@ -80,7 +80,7 @@ func (be *BeController) buildPodTemplate(src *srapi.StarRocksCluster, config map
 	beContainer := corev1.Container{
 		Name:            srapi.DEFAULT_BE,
 		Image:           beSpec.Image,
-		Command:         []string{"/opt/starrocks_temp/weave-entrypoint.sh"},
+		Command:         []string{"/opt/starrocks/be_entrypoint.sh"},
 		Args:            []string{"$(FE_SERVICE_NAME)"},
 		Ports:           pod.Ports(beSpec, config),
 		Env:             Envs,
