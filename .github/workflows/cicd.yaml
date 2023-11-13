@@ -38,16 +38,3 @@ jobs:
         uses: weave-lab/actions/finalize@v1
     outputs:
       deployMatrix: ${{ steps.finalize.outputs.deployMatrix }}
-
-  Deploy:
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.Pipeline.outputs.deployMatrix }}
-    needs: [ Pipeline ]
-    strategy:
-      fail-fast: false
-      matrix: ${{ fromJson(needs.Pipeline.outputs.deployMatrix) }}
-    uses: weave-lab/actions/.github/workflows/deployment.yaml@v1
-    with:
-      deployID: ${{ matrix.deployID }}
-      type: ${{ matrix.type }}
-    secrets: inherit
-    
