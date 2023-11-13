@@ -1112,6 +1112,16 @@ spec:
                     description: 'Limits describes the maximum amount of compute resources
                       allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/'
                     type: object
+                  livenessProbeFailureSeconds:
+                    description: LivenessProbeFailureSeconds defines the total failure
+                      seconds of liveness Probe. Default failureThreshold is 3 and
+                      the periodSeconds is 5, this means the liveness will fail if
+                      the pod can't respond in 15 seconds. Your LivenessProbeFailureSeconds
+                      is the total time of seconds before the container restart. If
+                      LivenessProbeFailureSeconds can't be divided by defaultPeriodSeconds,
+                      the failureThreshold will be rounded up.
+                    format: int32
+                    type: integer
                   nodeSelector:
                     additionalProperties:
                       type: string
@@ -1125,6 +1135,16 @@ spec:
                     type: object
                   readOnlyRootFilesystem:
                     type: boolean
+                  readinessProbeFailureSeconds:
+                    description: ReadinessProbeFailureSeconds defines the total failure
+                      seconds of readiness Probe. Default failureThreshold is 3 and
+                      the periodSeconds is 5, this means the readiness will fail if
+                      the pod can't respond in 15 seconds. Your ReadinessProbeFailureSeconds
+                      is the total time of seconds before pods becomes not ready.
+                      If ReadinessProbeFailureSeconds can't be divided by defaultPeriodSeconds,
+                      the failureThreshold will be rounded up.
+                    format: int32
+                    type: integer
                   replicas:
                     description: 'Replicas is the number of desired Pod. When HPA
                       policy is enabled with a fixed replica count: every time the
@@ -1238,13 +1258,13 @@ spec:
                     type: string
                   startupProbeFailureSeconds:
                     description: StartupProbeFailureSeconds defines the total failure
-                      seconds of startupProbe. Default failureThreshold is 60 and
+                      seconds of startup Probe. Default failureThreshold is 60 and
                       the periodSeconds is 5, this means the startup will fail if
                       the pod can't start in 300 seconds. Your StartupProbeFailureSeconds
                       is the total time of seconds before startupProbe give up and
                       fail the container start. If startupProbeFailureSeconds can't
                       be divided by defaultPeriodSeconds, the failureThreshold will
-                      be rounded up
+                      be rounded up.
                     format: int32
                     type: integer
                   storageVolumes:
@@ -3083,6 +3103,16 @@ spec:
                     description: 'Limits describes the maximum amount of compute resources
                       allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/'
                     type: object
+                  livenessProbeFailureSeconds:
+                    description: LivenessProbeFailureSeconds defines the total failure
+                      seconds of liveness Probe. Default failureThreshold is 3 and
+                      the periodSeconds is 5, this means the liveness will fail if
+                      the pod can't respond in 15 seconds. Your LivenessProbeFailureSeconds
+                      is the total time of seconds before the container restart. If
+                      LivenessProbeFailureSeconds can't be divided by defaultPeriodSeconds,
+                      the failureThreshold will be rounded up.
+                    format: int32
+                    type: integer
                   nodeSelector:
                     additionalProperties:
                       type: string
@@ -3096,6 +3126,16 @@ spec:
                     type: object
                   readOnlyRootFilesystem:
                     type: boolean
+                  readinessProbeFailureSeconds:
+                    description: ReadinessProbeFailureSeconds defines the total failure
+                      seconds of readiness Probe. Default failureThreshold is 3 and
+                      the periodSeconds is 5, this means the readiness will fail if
+                      the pod can't respond in 15 seconds. Your ReadinessProbeFailureSeconds
+                      is the total time of seconds before pods becomes not ready.
+                      If ReadinessProbeFailureSeconds can't be divided by defaultPeriodSeconds,
+                      the failureThreshold will be rounded up.
+                    format: int32
+                    type: integer
                   replicas:
                     description: 'Replicas is the number of desired Pod. When HPA
                       policy is enabled with a fixed replica count: every time the
@@ -3209,13 +3249,13 @@ spec:
                     type: string
                   startupProbeFailureSeconds:
                     description: StartupProbeFailureSeconds defines the total failure
-                      seconds of startupProbe. Default failureThreshold is 60 and
+                      seconds of startup Probe. Default failureThreshold is 60 and
                       the periodSeconds is 5, this means the startup will fail if
                       the pod can't start in 300 seconds. Your StartupProbeFailureSeconds
                       is the total time of seconds before startupProbe give up and
                       fail the container start. If startupProbeFailureSeconds can't
                       be divided by defaultPeriodSeconds, the failureThreshold will
-                      be rounded up
+                      be rounded up.
                     format: int32
                     type: integer
                   storageVolumes:
@@ -4219,6 +4259,16 @@ spec:
                     description: 'Limits describes the maximum amount of compute resources
                       allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/'
                     type: object
+                  livenessProbeFailureSeconds:
+                    description: LivenessProbeFailureSeconds defines the total failure
+                      seconds of liveness Probe. Default failureThreshold is 3 and
+                      the periodSeconds is 5, this means the liveness will fail if
+                      the pod can't respond in 15 seconds. Your LivenessProbeFailureSeconds
+                      is the total time of seconds before the container restart. If
+                      LivenessProbeFailureSeconds can't be divided by defaultPeriodSeconds,
+                      the failureThreshold will be rounded up.
+                    format: int32
+                    type: integer
                   nodeSelector:
                     additionalProperties:
                       type: string
@@ -4230,6 +4280,16 @@ spec:
                       type: string
                     description: the pod labels for user select or classify pods.
                     type: object
+                  readinessProbeFailureSeconds:
+                    description: ReadinessProbeFailureSeconds defines the total failure
+                      seconds of readiness Probe. Default failureThreshold is 3 and
+                      the periodSeconds is 5, this means the readiness will fail if
+                      the pod can't respond in 15 seconds. Your ReadinessProbeFailureSeconds
+                      is the total time of seconds before pods becomes not ready.
+                      If ReadinessProbeFailureSeconds can't be divided by defaultPeriodSeconds,
+                      the failureThreshold will be rounded up.
+                    format: int32
+                    type: integer
                   replicas:
                     description: 'Replicas is the number of desired Pod. When HPA
                       policy is enabled with a fixed replica count: every time the
@@ -4320,13 +4380,13 @@ spec:
                     type: string
                   startupProbeFailureSeconds:
                     description: StartupProbeFailureSeconds defines the total failure
-                      seconds of startupProbe. Default failureThreshold is 60 and
+                      seconds of startup Probe. Default failureThreshold is 60 and
                       the periodSeconds is 5, this means the startup will fail if
                       the pod can't start in 300 seconds. Your StartupProbeFailureSeconds
                       is the total time of seconds before startupProbe give up and
                       fail the container start. If startupProbeFailureSeconds can't
                       be divided by defaultPeriodSeconds, the failureThreshold will
-                      be rounded up
+                      be rounded up.
                     format: int32
                     type: integer
                   storageVolumes:
@@ -5466,6 +5526,16 @@ spec:
                     description: 'Limits describes the maximum amount of compute resources
                       allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/'
                     type: object
+                  livenessProbeFailureSeconds:
+                    description: LivenessProbeFailureSeconds defines the total failure
+                      seconds of liveness Probe. Default failureThreshold is 3 and
+                      the periodSeconds is 5, this means the liveness will fail if
+                      the pod can't respond in 15 seconds. Your LivenessProbeFailureSeconds
+                      is the total time of seconds before the container restart. If
+                      LivenessProbeFailureSeconds can't be divided by defaultPeriodSeconds,
+                      the failureThreshold will be rounded up.
+                    format: int32
+                    type: integer
                   nodeSelector:
                     additionalProperties:
                       type: string
@@ -5479,6 +5549,16 @@ spec:
                     type: object
                   readOnlyRootFilesystem:
                     type: boolean
+                  readinessProbeFailureSeconds:
+                    description: ReadinessProbeFailureSeconds defines the total failure
+                      seconds of readiness Probe. Default failureThreshold is 3 and
+                      the periodSeconds is 5, this means the readiness will fail if
+                      the pod can't respond in 15 seconds. Your ReadinessProbeFailureSeconds
+                      is the total time of seconds before pods becomes not ready.
+                      If ReadinessProbeFailureSeconds can't be divided by defaultPeriodSeconds,
+                      the failureThreshold will be rounded up.
+                    format: int32
+                    type: integer
                   replicas:
                     description: 'Replicas is the number of desired Pod. When HPA
                       policy is enabled with a fixed replica count: every time the
@@ -5592,13 +5672,13 @@ spec:
                     type: string
                   startupProbeFailureSeconds:
                     description: StartupProbeFailureSeconds defines the total failure
-                      seconds of startupProbe. Default failureThreshold is 60 and
+                      seconds of startup Probe. Default failureThreshold is 60 and
                       the periodSeconds is 5, this means the startup will fail if
                       the pod can't start in 300 seconds. Your StartupProbeFailureSeconds
                       is the total time of seconds before startupProbe give up and
                       fail the container start. If startupProbeFailureSeconds can't
                       be divided by defaultPeriodSeconds, the failureThreshold will
-                      be rounded up
+                      be rounded up.
                     format: int32
                     type: integer
                   storageVolumes:
