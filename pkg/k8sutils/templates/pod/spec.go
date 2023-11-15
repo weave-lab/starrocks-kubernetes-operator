@@ -423,12 +423,15 @@ func PodSecurityContext(spec v1.SpecInterface) *corev1.PodSecurityContext {
 	}
 	// Define the fsGroupChangePolicy
 	fsGroupChangePolicy := corev1.FSGroupChangeAlways // Changed policy here
+	// Define the SupplementalGroups
+	supplementalGroups := []int64{1}    // Adding Supplemental Group 1
 	// Create the PodSecurityContext
 	sc := &corev1.PodSecurityContext{
 		RunAsUser:           userID,
 		RunAsGroup:          groupID,
 		FSGroup:             fsGroup,
 		FSGroupChangePolicy: &fsGroupChangePolicy,
+		SupplementalGroups:  supplementalGroups,
 	}
 	return sc
 }
