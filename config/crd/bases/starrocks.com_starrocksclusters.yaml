@@ -1296,8 +1296,8 @@ spec:
                             volume should be mounted. Defaults to "" (volume's root).
                           type: string
                       required:
+                      - mountPath
                       - name
-                      - storageSize
                       type: object
                     type: array
                   terminationGracePeriodSeconds:
@@ -3287,8 +3287,8 @@ spec:
                             volume should be mounted. Defaults to "" (volume's root).
                           type: string
                       required:
+                      - mountPath
                       - name
-                      - storageSize
                       type: object
                     type: array
                   terminationGracePeriodSeconds:
@@ -4418,8 +4418,8 @@ spec:
                             volume should be mounted. Defaults to "" (volume's root).
                           type: string
                       required:
+                      - mountPath
                       - name
-                      - storageSize
                       type: object
                     type: array
                   tolerations:
@@ -5710,8 +5710,8 @@ spec:
                             volume should be mounted. Defaults to "" (volume's root).
                           type: string
                       required:
+                      - mountPath
                       - name
-                      - storageSize
                       type: object
                     type: array
                   terminationGracePeriodSeconds:

@@ -605,8 +605,8 @@ spec:
                         subPath:
                           type: string
                       required:
+                      - mountPath
                       - name
-                      - storageSize
                       type: object
                     type: array
                   terminationGracePeriodSeconds:
@@ -1527,8 +1527,8 @@ spec:
                         subPath:
                           type: string
                       required:
+                      - mountPath
                       - name
-                      - storageSize
                       type: object
                     type: array
                   terminationGracePeriodSeconds:
@@ -2021,8 +2021,8 @@ spec:
                         subPath:
                           type: string
                       required:
+                      - mountPath
                       - name
-                      - storageSize
                       type: object
                     type: array
                   tolerations:
@@ -2606,8 +2606,8 @@ spec:
                         subPath:
                           type: string
                       required:
+                      - mountPath
                       - name
-                      - storageSize
                       type: object
                     type: array
                   terminationGracePeriodSeconds:

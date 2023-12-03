@@ -67,18 +67,21 @@ rules:
   - starrocks.com
   resources:
   - starrocksclusters
+  - starrockswarehouses
   verbs:
   - '*'
 - apiGroups:
   - starrocks.com
   resources:
   - starrocksclusters/finalizers
+  - starrockswarehouses/finalizers
   verbs:
   - update
 - apiGroups:
   - starrocks.com
   resources:
   - starrocksclusters/status
+  - starrockswarehouses/status
   verbs:
   - get
   - patch
@@ -171,7 +174,7 @@ spec:
         kubectl.kubernetes.io/default-container: manager
       labels:
         app: kube-starrocks-operator
-        version: 1.8.6
+        version: 1.8.7
     spec:
       automountServiceAccountToken: true
       containers:
@@ -182,7 +185,7 @@ spec:
         env:
         - name: TZ
           value: Asia/Shanghai
-        image: "starrocks/operator:v1.8.6"
+        image: "starrocks/operator:v1.8.7"
         imagePullPolicy: Always
         name: manager
         securityContext:

@@ -40,32 +40,12 @@ func (fc *FeController) buildPodTemplate(src *srapi.StarRocksCluster, config map
 	feSpec := src.Spec.StarRocksFeSpec
 
 	vols, volMounts, vexist := pod.MountStorageVolumes(feSpec)
-	// add default volume about log ,meta if not configure.
+	// add default volume about log, meta if not configure.
 	if _, ok := vexist[_metaPath]; !ok {
-		volMounts = append(
-			volMounts, corev1.VolumeMount{
-				Name:      _metaName,
-				MountPath: _metaPath,
-			})
-		vols = append(vols, corev1.Volume{
-			Name: _metaName,
-			VolumeSource: corev1.VolumeSource{
-				EmptyDir: &corev1.EmptyDirVolumeSource{},
-			},
-		})
+		vols, volMounts = pod.MountEmptyDirVolume(vols, volMounts, _metaName, _metaPath, "")
 	}
-
 	if _, ok := vexist[_logPath]; !ok {
-		volMounts = append(volMounts, corev1.VolumeMount{
-			Name:      _logName,
-			MountPath: _logPath,
-		})
-		vols = append(vols, corev1.Volume{
-			Name: _logName,
-			VolumeSource: corev1.VolumeSource{
-				EmptyDir: &corev1.EmptyDirVolumeSource{},
-			},
-		})
+		vols, volMounts = pod.MountEmptyDirVolume(vols, volMounts, _logName, _logPath, "")
 	}
 
 	// mount configmap, secrets to pod if needed
@@ -74,7 +54,7 @@ func (fc *FeController) buildPodTemplate(src *srapi.StarRocksCluster, config map
 	vols, volMounts = pod.MountSecrets(vols, volMounts, feSpec.Secrets)
 
 	feExternalServiceName := service.ExternalServiceName(src.Name, feSpec)
-	Envs := pod.Envs(src.Spec.StarRocksFeSpec, config, feExternalServiceName, src.Namespace, feSpec.FeEnvVars)
+	envs := pod.Envs(src.Spec.StarRocksFeSpec, config, feExternalServiceName, src.Namespace, feSpec.FeEnvVars)
 	httpPort := rutils.GetPort(config, rutils.HTTP_PORT)
 	feContainer := corev1.Container{
 		Name:            srapi.DEFAULT_FE,
@@ -82,7 +62,7 @@ func (fc *FeController) buildPodTemplate(src *srapi.StarRocksCluster, config map
 		Command:         []string{"/opt/starrocks/fe_entrypoint.sh"},
 		Args:            []string{"$(FE_SERVICE_NAME)"},
 		Ports:           pod.Ports(feSpec, config),
-		Env:             Envs,
+		Env:             envs,
 		Resources:       feSpec.ResourceRequirements,
 		VolumeMounts:    volMounts,
 		ImagePullPolicy: corev1.PullIfNotPresent,
@@ -100,7 +80,7 @@ func (fc *FeController) buildPodTemplate(src *srapi.StarRocksCluster, config map
 		})
 	}
 
-	podSpec := pod.Spec(feSpec, src.Spec.ServiceAccount, feContainer, vols)
+	podSpec := pod.Spec(feSpec, feContainer, vols)
 	annotations := pod.Annotations(feSpec)
 	podSpec.SecurityContext = pod.PodSecurityContext(feSpec)
 	return corev1.PodTemplateSpec{
