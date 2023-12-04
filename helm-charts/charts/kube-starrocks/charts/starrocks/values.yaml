@@ -156,12 +156,10 @@ starrocksFESpec:
     logStorageSize: 5Gi
   # mount other volumes if necessary.
   # Note: please use storageSpec field for persistent metadata and log.
-  storageVolumes: []
+  emptyDirs: []
     # e.g. mount an emptyDir volume to /tmp
     # - name: tmp-data
     #   mountPath: /tmp
-    #   Note: if emptyDir is set, an emptyDir volume will be created, not PVC.
-    #   storageClassName: "emptyDir"
   # the config for start fe. the base information as follows.
   config: |
     LOG_DIR = ${STARROCKS_HOME}/log
@@ -344,12 +342,10 @@ starrocksCnSpec:
     logStorageSize: 1Gi
   # mount other volumes if necessary.
   # Note: please use storageSpec field for persistent storage data and log.
-  storageVolumes: []
+  emptyDirs: []
     # e.g. mount an emptyDir volume to /tmp
     # - name: tmp-data
     #   mountPath: /tmp
-    #   Note: if emptyDir is set, an emptyDir volume will be created, not PVC.
-    #   storageClassName: "emptyDir"
   # the config start for cn, the base information as follows.
   config: |
     sys_log_level = INFO
@@ -491,12 +487,10 @@ starrocksBeSpec:
     logStorageSize: 1Gi
   # mount other volumes if necessary.
   # Note: please use storageSpec field for persistent storage data and log.
-  storageVolumes: []
+  emptyDirs: []
     # e.g. mount an emptyDir volume to /tmp
     # - name: tmp-data
     #   mountPath: /tmp
-    #   Note: if emptyDir is set, an emptyDir volume will be created, not PVC.
-    #   storageClassName: "emptyDir"
   # the config for start be. the base information as follows.
   config: |
     be_port = 9060
@@ -620,7 +614,7 @@ starrocksFeProxySpec:
   # default value is 15 seconds
   readinessProbeFailureSeconds:
   # Note: will create emptyDir volume for fe proxy, PVC is not supported.
-  storageVolumes: []
+  emptyDirs: []
       # e.g. mount an emptyDir volume to /tmp
       # - name: tmp-data
       #   mountPath: /tmp
