@@ -3,10 +3,10 @@ entries:
   kube-starrocks:
   - apiVersion: v2
     appVersion: 3.2-latest
-    created: "2024-01-05T21:13:56.997014+05:30"
+    created: "2024-01-06T17:22:21.84309+05:30"
     description: kube-starrocks includes two subcharts, operator and starrocks
-    digest: 7135567b63f685e55d0aa9d1c59a8662ddf58de05f8669f256f13969396236fc
-    home: https://github.com/weave-lab/starrocks-kubernetes-operator
+    digest: 1f001d448270c5ec25e80eb306e96de812f5f8c0298f0b20073233b04d6f130a
+    home: https://github.com/StarRocks/starrocks-kubernetes-operator
     icon: https://avatars.githubusercontent.com/u/88238841
     keywords:
     - operator
@@ -23,7 +23,7 @@ entries:
       name: Dongxiao Yan
     name: kube-starrocks
     sources:
-    - https://github.com/weave-lab/starrocks
+    - https://github.com/StarRocks/starrocks
     type: application
     urls:
     - https://github.com/weave-lab/starrocks-kubernetes-operator/releases/download/v1.10.0/kube-starrocks-1.9.0.tgz
@@ -362,9 +362,9 @@ entries:
   operator:
   - apiVersion: v2
     appVersion: 1.9.0
-    created: "2024-01-05T21:13:57.112423+05:30"
+    created: "2024-01-06T17:22:21.940102+05:30"
     description: A Helm chart for StarRocks operator
-    digest: f3a61f6c560e75bf1322ffa212937398c64303a760bab7d8201861c6cb5817b6
+    digest: 34602d0383cdade304d2624db6123c7eedb6c0d52caf96fa06f663ea3a1dae86
     home: https://github.com/StarRocks/starrocks-kubernetes-operator
     icon: https://avatars.githubusercontent.com/u/88238841
     keywords:
@@ -385,7 +385,7 @@ entries:
     - https://github.com/StarRocks/starrocks
     type: application
     urls:
-    - https://github.com/StarRocks/starrocks-kubernetes-operator/releases/download/v1.10.0/operator-1.9.0.tgz
+    - https://github.com/weave-lab/starrocks-kubernetes-operator/releases/download/v1.10.0/operator-1.9.0.tgz
     version: 1.9.0
   - apiVersion: v2
     appVersion: 1.8.8
@@ -656,8 +656,35 @@ entries:
     - https://github.com/weave-lab/starrocks
     type: application
     urls:
-    - https://github.com/StarRocks/starrocks-kubernetes-operator/releases/download/v1.10.0/starrocks-1.10.0.tgz
+    - https://github.com/weave-lab/starrocks-kubernetes-operator/releases/download/v1.10.0/starrocks-1.10.0.tgz
     version: 1.10.0
+  - apiVersion: v2
+    appVersion: 3.2-latest
+    created: "2024-01-06T17:22:22.021885+05:30"
+    description: A Helm chart for StarRocks cluster
+    digest: 43f3c3333312e54104e61d09b5c45a76d315b94b5c745aa5790f0531dfdee1c2
+    home: https://github.com/StarRocks/starrocks-kubernetes-operator
+    icon: https://avatars.githubusercontent.com/u/88238841
+    keywords:
+    - operator
+    - starrocks
+    - database
+    - olap
+    kubeVersion: '>=1.18.3-0'
+    maintainers:
+    - email: caixiaohua@starrocks.com
+      name: Kevin Cai
+    - email: shensida@starrocks.com
+      name: SidaShen
+    - email: yandongxiao@starrocks.com
+      name: Dongxiao Yan
+    name: starrocks
+    sources:
+    - https://github.com/StarRocks/starrocks
+    type: application
+    urls:
+    - https://github.com/weave-lab/starrocks-kubernetes-operator/releases/download/v1.10.0/starrocks-1.9.0.tgz
+    version: 1.9.0
   - apiVersion: v2
     appVersion: 3.1-latest
     created: "2023-12-19T14:04:41.634167+08:00"
@@ -904,9 +931,9 @@ entries:
   warehouse:
   - apiVersion: v2
     appVersion: 3.2-latest
-    created: "2024-01-05T21:13:57.306627+05:30"
+    created: "2024-01-06T17:22:22.10351+05:30"
     description: Warehouse is currently a feature of the StarRocks Enterprise Edition.
-    digest: 7bb31ea9ddfb915d0f4411a6e32fbb3c3f98829492efc92612460c8ba5dc8b6e
+    digest: 3330b7f49cfb881362211559d0377b6f5b624458b56eb37917b8897a22ca2229
     home: https://github.com/StarRocks/starrocks-kubernetes-operator
     icon: https://avatars.githubusercontent.com/u/88238841
     keywords:
@@ -926,6 +953,6 @@ entries:
     - https://github.com/StarRocks/starrocks
     type: application
     urls:
-    - https://github.com/StarRocks/starrocks-kubernetes-operator/releases/download/v1.10.0/warehouse-1.9.0.tgz
+    - https://github.com/weave-lab/starrocks-kubernetes-operator/releases/download/v1.10.0/warehouse-1.9.0.tgz
     version: 1.9.0
-generated: "2024-01-05T21:13:57.305449+05:30"
+generated: "2024-01-06T17:22:22.103052+05:30"
