@@ -141,6 +141,10 @@ spec:
       storageClassName: {{ .Values.starrocksFESpec.storageSpec.storageClassName }}
       storageSize: {{ .Values.starrocksFESpec.storageSpec.storageSize }}
       mountPath: {{ .Values.starrocksFESpec.storageSpec.mountPath }}
+    - name: {{ .Values.starrocksFESpec.storageSpec.name }}{{ template "starrockscluster.fe.log.suffix" . }}
+      storageClassName: {{ .Values.starrocksFESpec.storageSpec.storageClassName }}
+      storageSize: {{ .Values.starrocksFESpec.storageSpec.logStorageSize }}
+      mountPath: {{ template "starrockscluster.fe.log.path" . }}  
     {{- end }}
     {{- if .Values.starrocksFESpec.emptyDirs }}
     {{- range .Values.starrocksFESpec.emptyDirs }}
